@@ -11,3 +11,34 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 		monospace;
 }
+
+.btn {
+	font-size: 15px;
+}
+
+.btn-primary,
+.bg-primary {
+	background-color: #ff0066 !important;
+	border: none;
+}
+.btn {
+	background-color: #ff006a !important;
+	opacity: 0.9;
+}
+.btn-primary:hover {
+	background-color: #ff006a !important;
+	opacity: 0.9;
+}
+
+.btn-secondary {
+	background-color: #7430f9;
+}
+
+.btn-secondary:hover {
+	background-color: #7430f9;
+	opacity: 0.9;
+}
+
+.icon {
+	margin-right: 5px;
+}

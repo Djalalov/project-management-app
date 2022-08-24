@@ -19,11 +19,13 @@ const Clients = () => {
 							<th>Phone</th>
 						</tr>
 					</thead>
-					<tbody>
-						{data.clients.map(client => (
-							<ClientRow key={client.id} client={client} />
-						))}
-					</tbody>
+					{
+						<tbody>
+							{data.clients.map(client => (
+								<ClientRow key={client.id} client={client} />
+							))}
+						</tbody>
+					}
 				</Table>
 			)}
 		</>
