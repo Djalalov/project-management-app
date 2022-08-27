@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useMutation } from "@apollo/client";
+import { ADD_CLIENT } from "../mutations/ClientMutations";
+import { GET_CLIENTS } from "../queries/clientQueries";
 import { FaUser } from "react-icons/fa";
 
 const AddClientModel = () => {
@@ -13,9 +15,20 @@ const AddClientModel = () => {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
+	const [addClient] = useMutation(ADD_CLIENT, {
+		variables: { name, email, phone },
+		update(cache, { data: { addClient } }) {
+			const { clients } = cache.readQuery({ query: GET_CLIENTS });
+			cache.writeQuery({
+				query: GET_CLIENTS,
+				data: { clients: [...clients, addClient] },
+			});
+		},
+	});
+
 	const handleSubmit = e => {
 		e.preventDefault();
-		console.log(name, email, phone);
+		addClient(name, email, phone);
 		handleClose();
 	};
 
@@ -23,7 +36,7 @@ const AddClientModel = () => {
 		<>
 			<button
 				onClick={handleShow}
-				className="btn text-light mt-4 mb-2"
+				className="btn btn-primary text-light mt-4 mb-2"
 				data-bs-toggle="modal"
 				data-bs-target="#addClientModal"
 			>
@@ -38,23 +51,41 @@ const AddClientModel = () => {
 					<Modal.Title>Add Client</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<Form>
-						<Form.Group className="mb-3" controlId="formBasicEmail">
-							<Form.Label>Email address</Form.Label>
-							<Form.Control type="email" placeholder="Enter email" />
-							<Form.Text className="text-muted">
-								We'll never share your email with anyone else.
-							</Form.Text>
+					<Form onSubmit={handleSubmit}>
+						<Form.Group className="mb-3">
+							<Form.Label htmlFor="name">Name</Form.Label>
+							<Form.Control
+								type="text"
+								placeholder="Enter name"
+								id="name"
+								onChange={e => setName(e.target.value)}
+								required
+							/>
 						</Form.Group>
 
-						<Form.Group className="mb-3" controlId="formBasicPassword">
-							<Form.Label>Password</Form.Label>
-							<Form.Control type="password" placeholder="Password" />
+						<Form.Group className="mb-3">
+							<Form.Label htmlFor="email">Email</Form.Label>
+							<Form.Control
+								type="email"
+								placeholder="Enter email"
+								id="email"
+								onChange={e => setEmail(e.target.value)}
+								required
+							/>
 						</Form.Group>
-						<Form.Group className="mb-3" controlId="formBasicCheckbox">
-							<Form.Check type="checkbox" label="Check me out" />
+
+						<Form.Group className="mb-3">
+							<Form.Label htmlFor="phone">Phone</Form.Label>
+							<Form.Control
+								type="number"
+								placeholder="Enter phone"
+								id="phone"
+								onChange={e => setPhone(e.target.value)}
+								required
+							/>
 						</Form.Group>
-						<Button variant="primary" type="submit">
+
+						<Button className="btn btn-danger text-light mt-2" type="submit">
 							Submit
 						</Button>
 					</Form>

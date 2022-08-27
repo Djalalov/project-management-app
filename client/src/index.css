@@ -14,31 +14,42 @@ code {
 
 .btn {
 	font-size: 15px;
+	outline: none;
+}
+.btn:hover {
+	background-color: #ff006ac3 !important;
+	opacity: 0.9;
 }
 
-.btn-primary,
-.bg-primary {
+.btn-primary {
 	background-color: #ff0066 !important;
 	border: none;
-}
-.btn {
-	background-color: #ff006a !important;
-	opacity: 0.9;
-}
-.btn-primary:hover {
-	background-color: #ff006a !important;
-	opacity: 0.9;
+	border: 1px solid #ff0066 !important;
 }
 
 .btn-secondary {
-	background-color: #7430f9;
+	background-color: #7430f9 !important;
+	border: none;
+	border: 1px solid #7430f9 !important;
+}
+
+.moreBtn:hover {
+	background-color: #ccc !important;
+}
+.moreBtn {
+	background-color: rgb(239, 239, 239) !important;
 }
 
 .btn-secondary:hover {
-	background-color: #7430f9;
+	background-color: #681cffda !important;
 	opacity: 0.9;
 }
 
 .icon {
 	margin-right: 5px;
+}
+
+.badge {
+	font-size: 12px !important;
+	padding: 6px 6px !important;
 }
