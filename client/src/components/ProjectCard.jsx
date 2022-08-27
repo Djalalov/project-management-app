@@ -4,7 +4,6 @@ import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 
 const ProjectCard = ({ project }) => {
-	console.log(project);
 	return (
 		<div className="col-md-4 ">
 			<Card className="my-2">

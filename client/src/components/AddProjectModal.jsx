@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { FaList } from "react-icons/fa";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_PROJECTS } from "../queries/projectQueries";
+import { ADD_PROJECT } from "../mutations/ProjectMutations";
 import { GET_CLIENTS } from "../queries/clientQueries";
 import { FaUser } from "react-icons/fa";
 import Spinner from "react-bootstrap/esm/Spinner";
@@ -29,6 +31,11 @@ const AddProjectModal = () => {
 		},
 	});
  */
+
+	const [addProject] = useMutation(ADD_PROJECT, {
+		variables: { name, description, clientId, status },
+	});
+
 	//Get Cilents for select
 	const { loading, error, data } = useQuery(GET_CLIENTS);
 
@@ -50,7 +57,7 @@ const AddProjectModal = () => {
 						className="btn btn-secondary text-light mt-4 mb-2 mx-2"
 					>
 						<div className="d-flex align-items-center">
-							<FaUser />
+							<FaList />
 							<div className="ms-2">Add Project</div>
 						</div>
 					</button>
