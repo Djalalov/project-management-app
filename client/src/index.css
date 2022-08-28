@@ -53,3 +53,11 @@ code {
 	font-size: 12px !important;
 	padding: 6px 6px !important;
 }
+
+.limitedPara {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2; /* number of lines to show */
+	-webkit-box-orient: vertical;
+}

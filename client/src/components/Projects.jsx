@@ -1,7 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { GET_PROJECTS } from "../queries/projectQueries";
-import Spinner from "./SpinnerComp";
 import ProjectCard from "./ProjectCard";
 
 const Projects = () => {

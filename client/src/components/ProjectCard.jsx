@@ -27,7 +27,8 @@ const ProjectCard = ({ project }) => {
 					)}
 				</Card.Header>
 				<Card.Body>
-					<Card.Text>{project.description}</Card.Text>
+					<Card.Text className="limitedPara">{project.description}</Card.Text>
+
 					<Button
 						className="moreBtn"
 						variant="light"
@@ -42,11 +43,3 @@ const ProjectCard = ({ project }) => {
 };
 
 export default ProjectCard;
-
-/* 	<div className="card mb-3">
-				<div className="card-body">
-					<div className="d-flex justify-content-between align-items-center">
-						<h5 className=" card-title"> {project.name}</h5>
-					</div>
-				</div>
-			</div> */

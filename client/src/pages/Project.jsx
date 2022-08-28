@@ -39,7 +39,7 @@ const Project = () => {
 							</Card.Text>
 							{data.project.status === "Completed" ? (
 								<Badge as="span" pill bg="success" className="badge">
-									In Progress
+									Completed
 								</Badge>
 							) : data.project.status === "In Progress" ? (
 								<Badge pill bg="warning">
