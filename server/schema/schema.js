@@ -1,4 +1,3 @@
-//Mongoose models
 const Project = require("../models/Project");
 const Client = require("../models/Client");
 
@@ -12,7 +11,7 @@ const {
 	GraphQLEnumType,
 } = require("graphql");
 
-// Project type
+// Project Type
 const ProjectType = new GraphQLObjectType({
 	name: "Project",
 	fields: () => ({
@@ -29,7 +28,7 @@ const ProjectType = new GraphQLObjectType({
 	}),
 });
 
-// Client type
+// Client Type
 const ClientType = new GraphQLObjectType({
 	name: "Client",
 	fields: () => ({
@@ -72,11 +71,11 @@ const RootQuery = new GraphQLObjectType({
 	},
 });
 
-//Mutations
+// Mutations
 const mutation = new GraphQLObjectType({
 	name: "Mutation",
 	fields: {
-		//Add a client
+		// Add a client
 		addClient: {
 			type: ClientType,
 			args: {
@@ -90,23 +89,27 @@ const mutation = new GraphQLObjectType({
 					email: args.email,
 					phone: args.phone,
 				});
+
 				return client.save();
 			},
 		},
-		// Delete client
+		// Delete a client
 		deleteClient: {
 			type: ClientType,
 			args: {
-				id: {
-					type: new GraphQLNonNull(GraphQLID),
-				},
+				id: { type: new GraphQLNonNull(GraphQLID) },
 			},
 			resolve(parent, args) {
+				Project.find({ clientId: args.id }).then(projects => {
+					projects.forEach(project => {
+						project.remove();
+					});
+				});
+
 				return Client.findByIdAndRemove(args.id);
 			},
 		},
 		// Add a project
-
 		addProject: {
 			type: ProjectType,
 			args: {
@@ -114,11 +117,11 @@ const mutation = new GraphQLObjectType({
 				description: { type: new GraphQLNonNull(GraphQLString) },
 				status: {
 					type: new GraphQLEnumType({
-						name: "ProjectSatus",
+						name: "ProjectStatus",
 						values: {
 							new: { value: "Not Started" },
 							progress: { value: "In Progress" },
-							completed: { value: "Copleted" },
+							completed: { value: "Completed" },
 						},
 					}),
 					defaultValue: "Not Started",
@@ -132,10 +135,11 @@ const mutation = new GraphQLObjectType({
 					status: args.status,
 					clientId: args.clientId,
 				});
+
 				return project.save();
 			},
 		},
-		// Delete project
+		// Delete a project
 		deleteProject: {
 			type: ProjectType,
 			args: {
@@ -145,7 +149,6 @@ const mutation = new GraphQLObjectType({
 				return Project.findByIdAndRemove(args.id);
 			},
 		},
-
 		// Update a project
 		updateProject: {
 			type: ProjectType,
@@ -155,7 +158,7 @@ const mutation = new GraphQLObjectType({
 				description: { type: GraphQLString },
 				status: {
 					type: new GraphQLEnumType({
-						name: "ProjectSatusUpdate",
+						name: "ProjectStatusUpdate",
 						values: {
 							new: { value: "Not Started" },
 							progress: { value: "In Progress" },

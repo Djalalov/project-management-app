@@ -7,7 +7,7 @@ import ProjectCard from "./ProjectCard";
 const Projects = () => {
 	const { loading, error, data } = useQuery(GET_PROJECTS);
 
-	if (loading) return <Spinner />;
+	if (loading) return null;
 	if (error) return <p>Something is wrong!</p>;
 	return (
 		<>

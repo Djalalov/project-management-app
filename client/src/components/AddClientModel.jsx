@@ -89,45 +89,6 @@ const AddClientModel = () => {
 							Submit
 						</Button>
 					</Form>
-					{/* <Form onSubmit={handleSubmit}>
-						<Form.Group className="mb-3">
-							<Form.Label htmlFor="name">Name</Form.Label>
-							<Form.Control
-								required
-								type="text"
-								placeholder="Enter name"
-								id="name"
-								value={name}
-								onChange={e => setName(e.target.value)}
-							/>
-						</Form.Group>
-						<Form.Group className="mb-3">
-							<Form.Label htmlFor="email">Email address</Form.Label>
-							<Form.Control
-								required
-								type="email"
-								placeholder="Enter email"
-								id="email"
-								value={email}
-								onChange={e => setEmail(e.target.value)}
-							/>
-						</Form.Group>
-						<Form.Group className="mb-3">
-							<Form.Label htmlFor="name">Phone</Form.Label>
-							<Form.Control
-								required
-								type="number"
-								placeholder="Enter phone"
-								id="phone"
-								value={phone}
-								onChange={e => setPhone(e.target.value)}
-							/>
-						</Form.Group>
-
-						<Button type="submit" className="btn mt-4 mb-2">
-							Submit
-						</Button>
-					</Form> */}
 				</Modal.Body>
 			</Modal>
 		</>

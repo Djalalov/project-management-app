@@ -7,8 +7,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_PROJECTS } from "../queries/projectQueries";
 import { ADD_PROJECT } from "../mutations/ProjectMutations";
 import { GET_CLIENTS } from "../queries/clientQueries";
-import { FaUser } from "react-icons/fa";
-import Spinner from "react-bootstrap/esm/Spinner";
 
 const AddProjectModal = () => {
 	const [name, setName] = useState("");
@@ -19,21 +17,17 @@ const AddProjectModal = () => {
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	/* 
-	const [addClient] = useMutation(ADD_CLIENT, {
-		variables: { name, email, phone },
-		update(cache, { data: { addClient } }) {
-			const { clients } = cache.readQuery({ query: GET_CLIENTS });
-			cache.writeQuery({
-				query: GET_CLIENTS,
-				data: { clients: [...clients, addClient] },
-			});
-		},
-	});
- */
 
+	//adding a project
 	const [addProject] = useMutation(ADD_PROJECT, {
 		variables: { name, description, clientId, status },
+		update(cache, { data: { addProject } }) {
+			const { projects } = cache.readQuery({ query: GET_PROJECTS });
+			cache.writeQuery({
+				query: GET_PROJECTS,
+				data: { projects: [...projects, addProject] },
+			});
+		},
 	});
 
 	//Get Cilents for select
@@ -41,10 +35,15 @@ const AddProjectModal = () => {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		//addClient(name, email, phone);
+		addProject(name, description, clientId, status);
 		handleClose();
-	};
+		console.log(name, "+", description, "+", clientId, "+", status);
 
+		setName("");
+		setDescription("");
+		setStatus("new");
+		setClientId("");
+	};
 	if (loading) return null;
 	if (error) return <p>Something went wrong</p>;
 
@@ -58,13 +57,13 @@ const AddProjectModal = () => {
 					>
 						<div className="d-flex align-items-center">
 							<FaList />
-							<div className="ms-2">Add Project</div>
+							<div className="ms-2">New Project</div>
 						</div>
 					</button>
 
 					<Modal show={show} onHide={handleClose}>
 						<Modal.Header closeButton>
-							<Modal.Title>Add Project</Modal.Title>
+							<Modal.Title>New Project</Modal.Title>
 						</Modal.Header>
 						<Modal.Body>
 							<Form onSubmit={handleSubmit}>
@@ -74,6 +73,7 @@ const AddProjectModal = () => {
 										type="text"
 										placeholder="Enter project name"
 										id="name"
+										value={name}
 										onChange={e => setName(e.target.value)}
 										required
 									/>
@@ -86,7 +86,8 @@ const AddProjectModal = () => {
 										rows={3}
 										placeholder="Enter description"
 										id="description"
-										onChange={e => description(e.target.value)}
+										value={description}
+										onChange={e => setDescription(e.target.value)}
 										required
 									/>
 								</Form.Group>
@@ -95,6 +96,7 @@ const AddProjectModal = () => {
 									<Form.Label htmlFor="status">Status</Form.Label>
 									<Form.Select
 										id="status"
+										value={status}
 										onChange={e => setStatus(e.target.value)}
 										required
 									>
@@ -108,12 +110,15 @@ const AddProjectModal = () => {
 									<Form.Label htmlFor="status">Client</Form.Label>
 									<Form.Select
 										id="status"
+										value={clientId}
 										onChange={e => setClientId(e.target.value)}
 										required
 									>
 										<option value="">Select Client</option>
 										{data.clients.map(client => (
-											<option key={client.id}>{client.name}</option>
+											<option key={client.id} value={client.id}>
+												{client.name}
+											</option>
 										))}
 									</Form.Select>
 								</Form.Group>
