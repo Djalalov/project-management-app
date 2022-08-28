@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 
 const ProjectCard = ({ project }) => {
+	console.log(project);
 	return (
 		<div className="col-md-4 ">
 			<Card className="my-2">
@@ -29,13 +30,16 @@ const ProjectCard = ({ project }) => {
 				<Card.Body>
 					<Card.Text className="limitedPara">{project.description}</Card.Text>
 
-					<Button
-						className="moreBtn"
-						variant="light"
-						href={`/projects/${project.id}`}
-					>
-						More...
-					</Button>
+					<div>
+						<Button
+							className="moreBtn"
+							variant="light"
+							href={`/projects/${project.id}`}
+						>
+							More...
+						</Button>
+						{/* <span>{project.client.name}</span> */}
+					</div>
 				</Card.Body>
 			</Card>
 		</div>

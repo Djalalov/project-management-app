@@ -52,6 +52,7 @@ const Project = () => {
 							) : (
 								""
 							)}
+
 							<ClientInfo client={data.project.client} />
 
 							<div className="d-flex justify-content-between mt-5">
